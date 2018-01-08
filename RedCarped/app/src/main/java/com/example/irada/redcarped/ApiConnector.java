@@ -281,59 +281,46 @@ public class ApiConnector {
 
         return entityResponse;
     }
-    public String EditProfile(int id,String number,String name, String adress, String info, String image)
+    public JSONArray login(String number)
     {
-        String url = baseurl+"EditProfile.php";
+        String url = baseurl+"login.php";
         HttpEntity httpEntity = null;
-
-
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(url);
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(5);
+        nameValuePair.add(new BasicNameValuePair("number", number));
         try {
-
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(6);
-            nameValuePair.add(new BasicNameValuePair("id", String.valueOf(id)));
-            nameValuePair.add(new BasicNameValuePair("number", number));
-            nameValuePair.add(new BasicNameValuePair("name", name));
-            nameValuePair.add(new BasicNameValuePair("adress", adress));
-            nameValuePair.add(new BasicNameValuePair("info", info));
-            nameValuePair.add(new BasicNameValuePair("image", image));
-
-            try {
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                HttpResponse httpResponse = httpClient.execute(httpPost);
-                // write response to log
-                Log.d("Http Post Response:", httpResponse.toString());
-                httpEntity = httpResponse.getEntity();
-            } catch (ClientProtocolException e) {
-                // Log exception
-                e.printStackTrace();
-            } catch (IOException e) {
-                // Log exception
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            // Log exception
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-        String entityResponse = null;
+        try {
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            httpEntity = httpResponse.getEntity();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        JSONArray jsonArray = null;
 
         if (httpEntity != null) {
             try {
-                entityResponse = EntityUtils.toString(httpEntity);
-                Log.e("Entity Response  : ", entityResponse);
+                String entityResponse = EntityUtils.toString(httpEntity);
+
+
+                jsonArray = new JSONArray(entityResponse);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        return entityResponse;
+        return jsonArray;
     }
 
     public String Edit(String am_name, String ru_name, String ro_name, String en_name, String priceAM, String priceRO, String quantity, String type, String data, int id)

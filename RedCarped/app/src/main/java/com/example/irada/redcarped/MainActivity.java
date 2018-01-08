@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         user_data=getSharedPreferences(SharedPreferencesname,MODE_PRIVATE);
-        number=user_data.getString(spname,"");
+        number=user_data.getString(spnumber,"");
         name=user_data.getString(spname,"");
         id=user_data.getInt(spid,0);
         if (number.length()==0) {
@@ -105,10 +105,16 @@ public class MainActivity extends AppCompatActivity
             user_datasp.putInt(spid,0);
             user_datasp.putString(spnumber,"");
             user_datasp.commit();
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
 
 
         } else if (id == R.id.info) {
             Intent info = new Intent(this,PartiesActivity.class);
+            startActivity(info);
+
+        }   else if (id == R.id.newparty) {
+            Intent info = new Intent(this,NewParty.class);
             startActivity(info);
 
         }
