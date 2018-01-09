@@ -26,9 +26,9 @@ public class ApiConnector {
     public ApiConnector() {}
     private final static String baseurl="https://magaramovai.000webhostapp.com/";
 
-    public JSONArray GetAllParties()
+    public JSONArray Parties()
     {
-        String url = baseurl+"GetAllParties.php";
+        String url = baseurl+"Parties.php";
 
 
         HttpEntity httpEntity = null;
@@ -36,7 +36,7 @@ public class ApiConnector {
         try
         {
 
-            DefaultHttpClient httpClient = new DefaultHttpClient();  // Default HttpClient
+            DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet(url);
             HttpResponse httpResponse = httpClient.execute(httpGet);
 
@@ -53,9 +53,6 @@ public class ApiConnector {
         if (httpEntity != null) {
             try {
                 String entityResponse = EntityUtils.toString(httpEntity);
-
-                Log.d("Entity Response  : ", entityResponse);
-
                 jsonArray = new JSONArray(entityResponse);
 
             } catch (JSONException e) {
@@ -172,9 +169,8 @@ public class ApiConnector {
         return jsonArray;
     }
 
-    public String AddParty(String name, String date , String start, String end, String andress, String adresshint, String description, String user_id,String image ) {
-       // Party(name, date, start, end, andress, adresshint, description, user_id, image)
-        String url = baseurl+"AddParty.php";
+    public String NewParty(String name,String address, String user_id, String type) {
+        String url = baseurl+"NewParty.php";
         HttpEntity httpEntity = null;
 
 
@@ -182,16 +178,11 @@ public class ApiConnector {
 
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(9);
+            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(4);
             nameValuePair.add(new BasicNameValuePair("name", name));
-            nameValuePair.add(new BasicNameValuePair("date", date));
-            nameValuePair.add(new BasicNameValuePair("start", start));
-            nameValuePair.add(new BasicNameValuePair("end", end));
-            nameValuePair.add(new BasicNameValuePair("andress", andress));
-            nameValuePair.add(new BasicNameValuePair("adresshint", adresshint));
-            nameValuePair.add(new BasicNameValuePair("description", description));
-            nameValuePair.add(new BasicNameValuePair("user_id", user_id));
-            nameValuePair.add(new BasicNameValuePair("image", image));
+            nameValuePair.add(new BasicNameValuePair("address", address));
+            nameValuePair.add(new BasicNameValuePair("type", type));
+            nameValuePair.add(new BasicNameValuePair("userID", user_id));
 
 
             try {
@@ -281,6 +272,7 @@ public class ApiConnector {
 
         return entityResponse;
     }
+
     public JSONArray login(String number)
     {
         String url = baseurl+"login.php";

@@ -33,6 +33,9 @@ public class NewParty extends AppCompatActivity {
     EditText Ename;
     EditText Eadress;
     EditText Etype;
+    String Pname;
+    String Padress;
+    String Ptype;
     boolean img_is_set=false;
     ImageView img;
     String imageData;
@@ -50,25 +53,39 @@ public class NewParty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_party);
-       Ename= (EditText) findViewById(R.id.editText4);
-       Eadress= (EditText) findViewById(R.id.editText5);
-       Etype= (EditText) findViewById(R.id.editText6);
+        Ename= (EditText) findViewById(R.id.editText4);
+        Eadress= (EditText) findViewById(R.id.editText5);
+        Etype= (EditText) findViewById(R.id.editText6);
         img=(ImageView) findViewById(R.id.imageView4);
         user_data=getSharedPreferences(SharedPreferencesname,MODE_PRIVATE);
         number=user_data.getString(spnumber,"");
         name=user_data.getString(spname,"");
         id=user_data.getInt(spid,0);
+   }
 
-// TODO: 1/8/2018 server- //asinktask-
-
-
-
-
-
+    public void add (View v )
+    {
+        Pname=Ename.getText().toString();
+        Padress=Eadress.getText().toString();
+        Ptype=Etype.getText().toString();
+        new NewParty.parties().execute(new ApiConnector());
     }
 
+    private class parties extends AsyncTask<ApiConnector,Long,String>
+    {
+        @Override
+        protected String doInBackground(ApiConnector... params) {
+            return params[0].NewParty(Pname, Padress,String.valueOf(id),Ptype);
+        }
 
-
+        @Override
+        protected void onPostExecute(String jsonArray) {
+            if (img_is_set)
+                uploadImg();
+            else
+                gotohome();
+        }
+    }
 
 
     public void pic(View v) {
@@ -138,7 +155,7 @@ public class NewParty extends AppCompatActivity {
     public void uploadImg() {
         final List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("image", imageData));
-        params.add(new BasicNameValuePair("Name", number));
+        params.add(new BasicNameValuePair("Name", Pname+"-"+id));
 
         new AsyncTask<ApiConnector, Long, Boolean>() {
             @Override

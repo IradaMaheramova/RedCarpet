@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,10 +38,12 @@ public class Verification extends AppCompatActivity {
         String verif = intent.getStringExtra("verif");
         String number = intent.getStringExtra("number");
         if(vernumber.equals(verif)) {
+
             SharedPreferences.Editor user_datasp = user_data.edit();
             user_datasp.putString(spname, name);
             user_datasp.putInt(spid, Integer.valueOf(id));
             user_datasp.putString(spnumber, number);
+            Log.e(name,number+" "+id);
             if(!user_datasp.commit())
             {
                 Toast.makeText(getApplicationContext(),"Something goes wrong : Please try again",Toast.LENGTH_SHORT).show();
@@ -50,6 +53,5 @@ public class Verification extends AppCompatActivity {
 
         Intent go = new Intent(this,MainActivity.class);
         startActivity(go);
-        // TODO: 1/8/2018  nael inchi chi qcum ps-i mej u qcel psi mej, hima inq@ uxarki texapoxum a main u prc
     }
 }
