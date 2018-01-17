@@ -2,18 +2,19 @@ package com.example.irada.redcarped;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.Manifest;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     String spid="id";
 
 
+    TextView hello;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        checkPermissions();
 
         user_data=getSharedPreferences(SharedPreferencesname,MODE_PRIVATE);
         number=user_data.getString(spnumber,"");
@@ -45,6 +48,63 @@ public class MainActivity extends AppCompatActivity
             startActivity(party);
         }
 
+        hello = (TextView)  findViewById(R.id.textView10) ;
+        hello.setText("Hello, "+name+"!");
+    }
+
+    public boolean checkPermissions(){
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                Log.v("Permission"," SEND_SMS Permission is granted");
+            } else {
+                Log.v("Permission","SEND_SMS Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
+                return false;
+            }
+            if (checkSelfPermission(android.Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED) {
+                Log.v("Permission"," RECEIVE_SMS Permission is granted");
+            } else {
+                Log.v("Permission","RECEIVE_SMS Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
+                return false;
+            }
+            if (checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                Log.v("Permission"," READ_PHONE_STATE Permission is granted");
+            } else {
+                Log.v("Permission","READ_PHONE_STATE Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+                return false;
+            }
+            if (checkSelfPermission(android.Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED) {
+                Log.v("Permission"," INTERNET Permission is granted");
+            } else {
+                Log.v("Permission","INTERNET Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 1);
+                return false;
+            }
+            if (checkSelfPermission(android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                Log.v("Permission"," READ_CONTACTS Permission is granted");
+            } else {
+                Log.v("Permission","READ_CONTACTS Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 1);
+                return false;
+            }
+            if (checkSelfPermission(android.Manifest.permission.WAKE_LOCK) == PackageManager.PERMISSION_GRANTED) {
+                Log.v("Permission"," WAKE_LOCK Permission is granted");
+            } else {
+                Log.v("Permission","WAKE_LOCK Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WAKE_LOCK}, 1);
+                return false;
+            }
+
+        }
+        else {
+            Log.v("Permission","Permissions are granted");
+        }
+
+
+        return true;
     }
 
     @Override
@@ -59,19 +119,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -109,8 +165,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
 
-        } else if (id == R.id.info) {
-            Intent info = new Intent(this,PartiesActivity.class);
+        } else if (id == R.id.chat) {
+            Intent info = new Intent(this,Chat.class);
             startActivity(info);
 
         }   else if (id == R.id.newparty) {

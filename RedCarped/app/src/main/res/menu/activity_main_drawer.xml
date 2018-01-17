@@ -27,9 +27,9 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="Log out" />
             <item
-                android:id="@+id/info"
+                android:id="@+id/chat"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Info" />
+                android:title="Chat" />
         </menu>
     </item>
 
