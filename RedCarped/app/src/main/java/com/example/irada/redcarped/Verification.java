@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Verification extends AppCompatActivity {
+    public class Verification extends AppCompatActivity {
     EditText editText;
     SharedPreferences user_data;
     String SharedPreferencesname="user_data";
@@ -35,8 +35,9 @@ public class Verification extends AppCompatActivity {
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
         String name = intent.getStringExtra("name");
-        String verif = intent.getStringExtra("verif");
+        String verif = String.valueOf(intent.getIntExtra("verif",0));
         String number = intent.getStringExtra("number");
+        Log.e(id+name,verif+number);
         if(vernumber.equals(verif)) {
 
             SharedPreferences.Editor user_datasp = user_data.edit();

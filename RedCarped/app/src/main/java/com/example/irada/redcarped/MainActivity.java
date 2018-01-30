@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.Manifest;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     SharedPreferences user_data;
@@ -37,23 +38,25 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        checkPermissions();
+        if(checkPermissions()) {
 
-        user_data=getSharedPreferences(SharedPreferencesname,MODE_PRIVATE);
-        number=user_data.getString(spnumber,"");
-        name=user_data.getString(spname,"");
-        id=user_data.getInt(spid,0);
-        if (number.length()==0) {
-            Intent party = new Intent(this,NewUserActivity.class);
-            startActivity(party);
+            user_data = getSharedPreferences(SharedPreferencesname, MODE_PRIVATE);
+            number = user_data.getString(spnumber, "");
+            name = user_data.getString(spname, "");
+            id = user_data.getInt(spid, 0);
+            if (number.length() == 0) {
+                Intent party = new Intent(this, NewUserActivity.class);
+                startActivity(party);
+            }
+
+            hello = (TextView) findViewById(R.id.textView10);
+            hello.setText("Hello, " + name + "!");
         }
-
-        hello = (TextView)  findViewById(R.id.textView10) ;
-        hello.setText("Hello, "+name+"!");
     }
 
     public boolean checkPermissions(){
 
+        Log.e("Build.VERSION.SDK_INT",""+Build.VERSION.SDK_INT);
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
                 Log.v("Permission"," SEND_SMS Permission is granted");
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity
         }
         else {
             Log.v("Permission","Permissions are granted");
+
         }
 
 
@@ -138,20 +142,14 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.my_profile) {
-            Intent profile = new Intent(this,ProfileActivity.class);
-            startActivity(profile);
-
-            // Handle the camera action
-        } else if (id == R.id.parties) {
+        if (id == R.id.parties) {
             Intent party = new Intent(this,PartiesActivity.class);
             startActivity(party);
 
         } else if (id == R.id.contacts) {
-            Intent contacts = new Intent(this,PartiesActivity.class);
+            Intent contacts = new Intent(this,FriendActivity.class);
             startActivity(contacts);
 
         } else if (id == R.id.log_out) {
@@ -171,6 +169,10 @@ public class MainActivity extends AppCompatActivity
 
         }   else if (id == R.id.newparty) {
             Intent info = new Intent(this,NewParty.class);
+            startActivity(info);
+
+        } else if (id == R.id.profile) {
+            Intent info = new Intent(this,ProfileActivity.class);
             startActivity(info);
 
         }

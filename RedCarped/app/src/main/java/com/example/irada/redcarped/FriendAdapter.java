@@ -7,22 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class PartiesAdapter extends BaseAdapter {
+public class FriendAdapter extends BaseAdapter {
     private static final String  startImageUrl="https://magaramovai.000webhostapp.com/images/";
     private JSONArray dataArray;
     private Activity activity;
     public static LayoutInflater inflater = null;
-    public PartiesAdapter(JSONArray jsonArray, Activity a)
+    public FriendAdapter(JSONArray jsonArray, Activity a)
     {
         this.dataArray=jsonArray;
         this.activity=a;
@@ -51,53 +48,40 @@ public class PartiesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ListParty party;
+        final ListFriend party;
 
         if(convertView == null)
         {
-            convertView=inflater.inflate(R.layout.party,null);
-            party = new ListParty();
-            party.name=(TextView) convertView.findViewById(R.id.textView7);
-            party.adress=(TextView) convertView.findViewById(R.id.textView8);
-            party.type=(TextView) convertView.findViewById(R.id.textView9);
-            party.date=(TextView) convertView.findViewById(R.id.textView10);
+            convertView=inflater.inflate(R.layout.friendadapter,null);
+            party = new ListFriend();
+            party.name=(TextView) convertView.findViewById(R.id.name);
+            party.number=(TextView) convertView.findViewById(R.id.number);
 
-            party.party_img=(ImageView) convertView.findViewById(R.id.imageView5);
             convertView.setTag(party);
 
         }
         else
         {
-            party= (ListParty) convertView.getTag();
+            party= (ListFriend) convertView.getTag();
 
         }
         try {
             JSONObject jsonObject = this.dataArray.getJSONObject(position);
-            party.name.setText(jsonObject.getString("Name"));
-            party.adress.setText(jsonObject.getString("Address"));
-            party.type.setText(jsonObject.getString("Type"));
-            party.date.setText(jsonObject.getString("date"));
-            String imageName=jsonObject.getString("Name")+"-"+jsonObject.getString("userID");
-            String fullUrlForimg=startImageUrl+imageName+".jpg";
-            Log.e("image url",fullUrlForimg);
-            Picasso.with(activity).load(fullUrlForimg)
-                    .placeholder(R.drawable.icon)
-                    .error(R.drawable.icon)
-                    .into(party.party_img);
+            Log.e("jsonObject Adapter",jsonObject.toString());
+            party.name.setText(jsonObject.getString("name"));
+            party.number.setText(jsonObject.getString("number"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return convertView;
     }
 
-    private class ListParty
+    private class ListFriend
     {
 
         private TextView name;
-        private TextView adress;
-        private TextView type;
-        private TextView date;
-        private ImageView party_img;
+        private TextView number;
+
     }
 
 

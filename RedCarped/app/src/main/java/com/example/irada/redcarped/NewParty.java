@@ -33,9 +33,11 @@ public class NewParty extends AppCompatActivity {
     EditText Ename;
     EditText Eadress;
     EditText Etype;
+    EditText Edate;
     String Pname;
     String Padress;
     String Ptype;
+    String Pdate;
     boolean img_is_set=false;
     ImageView img;
     String imageData;
@@ -56,6 +58,7 @@ public class NewParty extends AppCompatActivity {
         Ename= (EditText) findViewById(R.id.editText4);
         Eadress= (EditText) findViewById(R.id.editText5);
         Etype= (EditText) findViewById(R.id.editText6);
+        Edate= (EditText) findViewById(R.id.editText7);
         img=(ImageView) findViewById(R.id.imageView4);
         user_data=getSharedPreferences(SharedPreferencesname,MODE_PRIVATE);
         number=user_data.getString(spnumber,"");
@@ -68,6 +71,7 @@ public class NewParty extends AppCompatActivity {
         Pname=Ename.getText().toString();
         Padress=Eadress.getText().toString();
         Ptype=Etype.getText().toString();
+        Pdate=Edate.getText().toString();
         new NewParty.parties().execute(new ApiConnector());
     }
 
@@ -75,7 +79,7 @@ public class NewParty extends AppCompatActivity {
     {
         @Override
         protected String doInBackground(ApiConnector... params) {
-            return params[0].NewParty(Pname, Padress,String.valueOf(id),Ptype);
+            return params[0].NewParty(Pname, Padress,String.valueOf(id),Ptype,Pdate);
         }
 
         @Override

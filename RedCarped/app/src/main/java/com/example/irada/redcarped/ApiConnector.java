@@ -169,7 +169,7 @@ public class ApiConnector {
         return jsonArray;
     }
 
-    public String NewParty(String name,String address, String user_id, String type) {
+    public String NewParty(String name,String address, String user_id, String type, String date) {
         String url = baseurl+"NewParty.php";
         HttpEntity httpEntity = null;
 
@@ -178,11 +178,12 @@ public class ApiConnector {
 
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(4);
+            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(5);
             nameValuePair.add(new BasicNameValuePair("name", name));
             nameValuePair.add(new BasicNameValuePair("address", address));
             nameValuePair.add(new BasicNameValuePair("type", type));
             nameValuePair.add(new BasicNameValuePair("userID", user_id));
+            nameValuePair.add(new BasicNameValuePair("date", date));
 
 
             try {
@@ -281,6 +282,48 @@ public class ApiConnector {
         HttpPost httpPost = new HttpPost(url);
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(5);
         nameValuePair.add(new BasicNameValuePair("number", number));
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        try {
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            httpEntity = httpResponse.getEntity();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        JSONArray jsonArray = null;
+
+        if (httpEntity != null) {
+            try {
+                String entityResponse = EntityUtils.toString(httpEntity);
+
+
+                jsonArray = new JSONArray(entityResponse);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonArray;
+    }
+
+    public JSONArray Froends(String number)
+    {
+        String url = baseurl+"friend.php";
+        HttpEntity httpEntity = null;
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(url);
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(5);
+        nameValuePair.add(new BasicNameValuePair("numbers", number));
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
         } catch (UnsupportedEncodingException e) {

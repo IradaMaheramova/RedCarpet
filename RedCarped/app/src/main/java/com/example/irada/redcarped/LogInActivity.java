@@ -141,9 +141,9 @@ public class LogInActivity extends AppCompatActivity {
             intent.putExtra("id",jsonObject.getString("id"));
             intent.putExtra("name",jsonObject.getString("name"));
             intent.putExtra("number",number);
-
-            sendSMS(number,verif);
             intent.putExtra("verif",verif);
+            sendSMS(number,verif);
+
             startActivity(intent);
 
         } catch (JSONException e) {

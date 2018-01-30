@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.irada.redcarped.SignInActivity">
+    tools:context="com.example.irada.redcarped.SignInActivity"
+    android:background="@drawable/back"
+    >
 
     <RelativeLayout
         android:layout_width="368dp"

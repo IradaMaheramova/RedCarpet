@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.irada.redcarped.PartiesActivity"
+    tools:context="com.example.irada.redcarped.FriendActivity"
     android:background="@drawable/back"
     >
 
@@ -13,5 +13,5 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp"
-        android:id="@+id/partylist"/>
+        android:id="@+id/friendList"/>
 </android.support.constraint.ConstraintLayout>

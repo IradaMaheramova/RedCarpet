@@ -3,20 +3,20 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/my_profile"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="My profile" />
+            android:id="@+id/profile"
+            android:icon="@drawable/myprofile"
+            android:title="My Profile" />
         <item
             android:id="@+id/parties"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/pary"
             android:title="Parties" />
         <item
             android:id="@+id/contacts"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/contacts"
             android:title="Contacts" />
         <item
             android:id="@+id/newparty"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/add"
             android:title="New party" />
     </group>
 
@@ -24,11 +24,11 @@
         <menu>
             <item
                 android:id="@+id/log_out"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/exit"
                 android:title="Log out" />
             <item
                 android:id="@+id/chat"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/chat"
                 android:title="Chat" />
         </menu>
     </item>

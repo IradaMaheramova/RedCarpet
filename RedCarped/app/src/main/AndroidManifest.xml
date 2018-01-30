@@ -33,7 +33,8 @@
         <activity android:name=".SignInActivity" />
         <activity android:name=".Verification" />
         <activity android:name=".NewParty" />
-        <activity android:name=".Chat"></activity>
+        <activity android:name=".Chat"/>
+        <activity android:name=".FriendActivity"/>
     </application>
 
 </manifest>

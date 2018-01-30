@@ -1,6 +1,7 @@
 package com.example.irada.redcarped;
 
 import android.Manifest;
+import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,17 +39,18 @@ public class SignInActivity extends AppCompatActivity {
 
 
 
-        try {
+
             TelephonyManager tMgr = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
                 return;
             }
-            Number = tMgr.getLine1Number();
+            TelephonyManager tMgri = (TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+            String mPhoneNumber = tMgri.getLine1Number();
+            Number = tMgri.getLine1Number();
+            Log.e("NUmber","your number is "+Number);
+            Log.e("NUmber","your number is "+getApplicationContext());
             number.setText(Number);
-        }catch (Exception e) {
-            Log.e("error", e.toString());
-        }
     }
 
 

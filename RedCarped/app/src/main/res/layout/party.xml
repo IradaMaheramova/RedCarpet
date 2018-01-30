@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    >
 
     <ImageView
         android:id="@+id/imageView5"
@@ -18,19 +19,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/colorAccent"
+        />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Address"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@color/colorAccent"
+        />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Type"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@color/colorAccent"
+        />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@color/colorAccent"
+        />
 </LinearLayout>
